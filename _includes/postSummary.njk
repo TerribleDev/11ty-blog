@@ -1,0 +1,8 @@
+<article class="btmRule">
+    <h3 itemprop="headline" class="headline"><a href="{{ post.url }}" class="link-unstyled">{{ post.data.title }}</a></h3>
+    <time class="headlineSubtext" itemprop="datePublished" datetime="{{ page.date | htmlDateString }}">{{ page.date | readableDate("D") }}</time>
+    <div itemprop="articleBody">
+        {{ post.content | summerizePost | safe }}
+    </div>
+    <a href="{{ post.url }}">Continue Reading </a>
+</article>

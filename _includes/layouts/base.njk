@@ -1,61 +1,39 @@
-<!doctype html>
-<html lang="{{ metadata.language }}">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>{{ title or metadata.title }}</title>
-		<meta name="description" content="{{ description or metadata.description }}">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
 
-		{#- Atom and JSON feeds included by default #}
-		<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="{{ metadata.title }}">
-		<link rel="alternate" href="/feed/feed.json" type="application/json" title="{{ metadata.title }}">
-
-		{#- Uncomment this if you’d like folks to know that you used Eleventy to build your site!  #}
-		{#- <meta name="generator" content="{{ eleventy.generator }}"> #}
-
-		{#-
-		CSS bundles are provided via the `eleventy-plugin-bundle` plugin:
-		1. You can add to them using `{% css %}`
-		2. You can get from them using `{% getBundle "css" %}` or `{% getBundleFileUrl "css" %}`
-		3. You can do the same for JS: {% js %}{% endjs %} and <script>{% getBundle "js" %}</script>
-		4. Learn more: https://github.com/11ty/eleventy-plugin-bundle
-		#}
-
-		{#- Add an arbitrary string to the bundle #}
-		{%- css %}* { box-sizing: border-box; }{% endcss %}
-		{#- Add the contents of a file to the bundle #}
-		{%- css %}{% include "public/css/index.css" %}{% endcss %}
-		{#- Or add from node_modules #}
-		{# {%- css %}{% include "node_modules/prismjs/themes/prism-okaidia.css" %}{% endcss %} #}
-
+    <title>{{ title or metadata.title }}</title>
+		{% include './meta.njk' %}
+    <meta name="theme-color" content="#4A4A4A" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="alternate" type="application/atom+xml" title="RSS" href="/rss.xml">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="author" content="Tommy &quot;TerribleDev&quot; Parnell" />
+    <link rel="icon" href="/favicon.ico" />
+		{%- css %}{% include "public/css/site.css" %}{% endcss %}
+		{%- css %}{% include "public/css/site.mobile.css" %}{% endcss %}
+		{%- css %}{% include "public/css/site.desktop.css" %}{% endcss %}
 		{#- Render the CSS bundle using Inlined CSS (for the fastest site performance in production) #}
 		<style>{% getBundle "css" %}</style>
-		{#- Renders the CSS bundle using a separate file, if you can't set CSP directive style-src: 'unsafe-inline' #}
-		{#- <link rel="stylesheet" href="{% getBundleFileUrl "css" %}"> #}
-	</head>
-	<body>
-		<a href="#skip" class="visually-hidden">Skip to main content</a>
+		{% block head %}
+		{% endblock %}
 
-		<header>
-			<a href="/" class="home-link">{{ metadata.title }}</a>
-
-			{#- Read more about `eleventy-navigation` at https://www.11ty.dev/docs/plugins/navigation/ #}
-			<nav>
-				<h2 class="visually-hidden">Top level navigation menu</h2>
-				<ul class="nav">
-				{%- for entry in collections.all | eleventyNavigation %}
-					<li class="nav-item"><a href="{{ entry.url }}"{% if entry.url == page.url %} aria-current="page"{% endif %}>{{ entry.title }}</a></li>
-				{%- endfor %}
-				</ul>
-			</nav>
-		</header>
-
-		<main id="skip">
-			{{ content | safe }}
-		</main>
-
-		<footer></footer>
-
-		<!-- Current page: {{ page.url | htmlBaseUrl }} -->
-	</body>
+</head>
+<body>
+  <a class="skip-main" href="#main">Skip to main content</a>
+  <div class="rootbox">
+      <header class="header">
+          <svg aria-label="Open Menu" onclick="toggleNav()" id="menuBtn" role="button" xmlns="http://www.w3.org/2000/svg" width="32" height="32"><path d="M4 10h24c1.104 0 2-.896 2-2s-.896-2-2-2H4c-1.104 0-2 .896-2 2s.896 2 2 2zm24 4H4c-1.104 0-2 .896-2 2s.896 2 2 2h24c1.104 0 2-.896 2-2s-.896-2-2-2zm0 8H4c-1.104 0-2 .896-2 2s.896 2 2 2h24c1.104 0 2-.896 2-2s-.896-2-2-2z"/></svg>
+          <div class="headerCallout"><a href="/" class="link-unstyled ">{{ metadata.title }}</a></div>
+      </header>
+					{% include './nav.njk' %}
+          <main class="headerBump main-content-wrap" id="main">
+                  {{ content | safe }}
+          </main>
+      </div>
+    </div>
+		{% block scripts %}
+		{% endblock %}
+</body>
 </html>

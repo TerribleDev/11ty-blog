@@ -1,28 +1,22 @@
 ---
-layout: layouts/home.njk
+layout: layouts/base.njk
 eleventyNavigation:
-  key: Home
+  key: Home Page
   order: 1
 numberOfLatestPostsToShow: 3
 ---
-{% set postsCount = collections.posts | length %}
-{% set latestPostsCount = postsCount | min(numberOfLatestPostsToShow) %}
-<h1>Latest {{ latestPostsCount }} Post{% if latestPostsCount != 1 %}s{% endif %}</h1>
+{% set postslist = collections.posts %}
+{% for post in postslist | reverse %}
+				{% include "postSummary.njk" %}
+{% endfor %}
+	<div class="bottomNavButtons">
+					<a href="{{ previous }}" class="btn">&#8592; Previous Page</a>
+			<div class="spacer"></div>
+					<a href="{{ next }}" class="btn">Next Page &#8594;</a>
+	</div>
 
-{% set postslist = collections.posts | head(-1 * numberOfLatestPostsToShow) %}
-{% set postslistCounter = postsCount %}
-{% include "postslist.njk" %}
+				{# LD data #}
 
-{% set morePosts = postsCount - numberOfLatestPostsToShow %}
-{% if morePosts > 0 %}
-<p>{{ morePosts }} more post{% if morePosts != 1 %}s{% endif %} can be found in <a href="/blog/">the archive</a>.</p>
-{% endif %}
-
-{# List every content page in the project #}
-{#
-<ul>
-	{%- for entry in collections.all %}
-	<li><a href="{{ entry.url }}"><code>{{ entry.url }}</code></a></li>
-	{%- endfor %}
-</ul>
-#}
+	{% block head %}
+		<link rel="canonical" href="https://blog.terrible.dev/">
+	{% endblock %}

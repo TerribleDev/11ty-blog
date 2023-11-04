@@ -1,0 +1,25 @@
+{
+    "dir": "ltr",
+    "lang": "en",
+    "name": "The Ramblings of TerribleDev",
+    "scope": "/",
+    "display": "minimal-ui",
+    "start_url": "/index.html",
+    "short_name": "Terribl",
+    "theme_color": "#4A4A4A",
+    "background_color": "#FFF",
+    "description": "My name is Tommy Parnell. I usually go by TerribleDev on the internets. These are just some of my writings and rants about the software space.",
+    "orientation": "any",
+    "related_applications": [],
+    "prefer_related_applications": false,
+    "icons": [
+        {
+            "src": "/favicon.ico",
+            "sizes": "64x64"
+        },
+        {
+            "src": "/content/pencil.png",
+            "sizes": "512x512"
+        }
+    ]
+}

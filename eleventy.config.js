@@ -65,6 +65,16 @@ module.exports = function(eleventyConfig) {
 		return Math.min.apply(null, numbers);
 	});
 
+	eleventyConfig.addFilter("summerizePost", post => {
+    // get content
+		return post.split('<!-- more -->')[0];
+  });
+
+	eleventyConfig.addFilter("getPermalinkForHomePage", post => {
+    // get content
+		return post.split('<!-- more -->')[0];
+  });
+
 	// Return all the tags used in a collection
 	eleventyConfig.addFilter("getAllTags", collection => {
 		let tagSet = new Set();
@@ -75,7 +85,8 @@ module.exports = function(eleventyConfig) {
 	});
 
 	eleventyConfig.addFilter("filterTagList", function filterTagList(tags) {
-		return (tags || []).filter(tag => ["all", "nav", "post", "posts"].indexOf(tag) === -1);
+		return (tags || [])
+		.filter(tag => ["all", "nav", "post", "posts"].indexOf(tag) === -1);
 	});
 
 	// Customize Markdown library settings:
@@ -98,7 +109,7 @@ module.exports = function(eleventyConfig) {
 	// to emulate the file copy on the dev server. Learn more:
 	// https://www.11ty.dev/docs/copy/#emulate-passthrough-copy-during-serve
 
-	// eleventyConfig.setServerPassthroughCopyBehavior("passthrough");
+	eleventyConfig.setServerPassthroughCopyBehavior("content/content");
 
 	return {
 		// Control which files Eleventy will process
@@ -115,7 +126,7 @@ module.exports = function(eleventyConfig) {
 		],
 
 		// Pre-process *.md files with: (default: `liquid`)
-		markdownTemplateEngine: false,
+		markdownTemplateEngine: 'md',
 
 		// Pre-process *.html files with: (default: `liquid`)
 		htmlTemplateEngine: "njk",
