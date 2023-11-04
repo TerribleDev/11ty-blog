@@ -8,7 +8,7 @@ tags:
 
 So now that Windows server 2016 is [generally avalible](https://blogs.technet.microsoft.com/hybridcloud/2016/10/12/another-big-step-in-hybrid-cloud-windows-server-2016-general-availability/) for the first time ever windows users can now use containers. Ok, so what exactly are containers? Well more or less they are virtual operating systems that **share** the same kernel as the host OS. In regular VM's the hardware is shared between machines, but containers go a step further and share the kernel of the OS. Why does this matter? Well because you are sharing an existing kernel that is already running, your startup times are instantanious. To put this in perspective, this is virtualization at the OS level.
 
-On Linux, containers have been a thing for a long time. This technology is called LXC. Docker itself is a layer ontop of various container platforms embedded in operating systems. 
+On Linux, containers have been a thing for a long time. This technology is called LXC. Docker itself is a layer ontop of various container platforms embedded in operating systems.
 
 <!-- more -->
 
@@ -58,6 +58,6 @@ Even legacy applications can be improved with some kind of build automation. Sta
 
 In my sample I created a gulp file that takes in a version number (which could be passed by our CI system). Patches the AssemblyInfo.cs files, restores nuget packages, and compiles down a docker image to be used later. All with the simple command of `gulp build --version 1.0.0`
 
-The created docker image could easily be uploaded to some kind of storage. 
+The created docker image could easily be uploaded to some kind of storage.
 
 
