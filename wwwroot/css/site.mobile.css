@@ -27,6 +27,7 @@
   .navBar {
     position: fixed;
     width: 100vw;
+    overflow: scroll;
   }
   .main-content-wrap {
     max-width: calc(100vw - 4rem);
