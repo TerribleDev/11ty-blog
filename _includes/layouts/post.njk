@@ -1,28 +1,36 @@
 ---
 layout: layouts/base.njk
 ---
-{# Only include the syntax highlighter CSS on blog posts #}
-{%- css %}{% include "node_modules/prismjs/themes/prism-okaidia.css" %}{% endcss %}
-{%- css %}{% include "public/css/prism-diff.css" %}{%- endcss %}
-<h1>{{ title }}</h1>
 
-<ul class="post-metadata">
-	<li><time datetime="{{ page.date | htmlDateString }}">{{ page.date | readableDate }}</time></li>
-	{%- for tag in tags | filterTagList %}
-	{%- set tagUrl %}/tags/{{ tag | slugify }}/{% endset %}
-	<li><a href="{{ tagUrl }}" class="post-tag">{{ tag }}</a>{%- if not loop.last %}, {% endif %}</li>
-	{%- endfor %}
-</ul>
+    {%- set summerizedPost = content | summerizePost %}
+		{%- block head %}
+      <meta name="description" content="{{ summerizedPost }}" />
+      <meta property="og:type" content="blog">
+      <meta property="og:title" content="{{ title }}">
+      <meta property="og:url" content="{{ url }}">
+      <meta property="og:site_name" content="{{ metadata.title }}">
+      <meta property="og:description" content="{{ content | summerizePost | nohtml }}">
+      <meta property="og:updated_time" content="{{ date | htmlDateString}}">
+      <meta name="twitter:card" content="summary">
+      <meta name="twitter:title" content="{{ title }}">
+      <meta name="twitter:description" content="{{ content | summerizePost | nohtml }}">
+      <meta name="twitter:site" content="@@TerribleDev">
+      <meta name="twitter:creator" content="@@TerribleDev">
+      <link rel="canonical" href="{{ url }}" />
+		{% endblock %}
 
-{{ content | safe }}
+<article itemprop="blogPost">
+    <h1 itemprop="headline" class="headline">{{ title }}</h1>
+    <time class="headlineSubtext" itemprop="datePublished" datetime="{{ date | htmlDateString }}">{{ date | readableDate}}</time>
+    {{ content | safe}}
+    {%- if tags | filterTagList %}
+        <div>
+            <span>Tagged In:</span><br />
+            {%- for tag in tags | filterTagList %}
+                <a href="/tag/{{ tag | slugify }}" class="btn block">{{ tag }}</a>
+            {%- endfor %}
+        </div>
+    {%- endif %}
 
-{%- if collections.posts %}
-{%- set previousPost = collections.posts | getPreviousCollectionItem %}
-{%- set nextPost = collections.posts | getNextCollectionItem %}
-{%- if nextPost or previousPost %}
-<ul class="links-nextprev">
-	{%- if previousPost %}<li>Previous: <a href="{{ previousPost.url }}">{{ previousPost.data.title }}</a></li>{% endif %}
-	{%- if nextPost %}<li>Next: <a href="{{ nextPost.url }}">{{ nextPost.data.title }}</a></li>{% endif %}
-</ul>
-{%- endif %}
-{%- endif %}
+</article>
+

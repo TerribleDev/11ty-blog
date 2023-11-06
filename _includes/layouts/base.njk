@@ -11,9 +11,9 @@
     <link rel="manifest" href="/manifest.json">
     <meta name="author" content="Tommy &quot;TerribleDev&quot; Parnell" />
     <link rel="icon" href="/favicon.ico" />
-		{%- css %}{% include "public/css/site.css" %}{% endcss %}
-		{%- css %}{% include "public/css/site.mobile.css" %}{% endcss %}
-		{%- css %}{% include "public/css/site.desktop.css" %}{% endcss %}
+		{%- css %}{% include "wwwroot/css/site.css" %}{% endcss %}
+		{%- css %}{% include "wwwroot/css/site.mobile.css" %}{% endcss %}
+		{%- css %}{% include "wwwroot/css/site.desktop.css" %}{% endcss %}
 		{#- Render the CSS bundle using Inlined CSS (for the fastest site performance in production) #}
 		<style>{% getBundle "css" %}</style>
 		{% block head %}
@@ -33,6 +33,7 @@
           </main>
       </div>
     </div>
+    <script src="/js/swi.js"></script>
 		{% block scripts %}
 		{% endblock %}
 </body>

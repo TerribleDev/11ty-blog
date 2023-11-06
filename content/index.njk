@@ -1,22 +1,25 @@
 ---
 layout: layouts/base.njk
-eleventyNavigation:
-  key: Home Page
-  order: 1
-numberOfLatestPostsToShow: 3
+pagination:
+  data: collections.posts
+  reverse: true
+  size: 10
+permalink: "/{{ pagination.pageNumber | getPermalinkForHomePage }}"
 ---
-{% set postslist = collections.posts %}
-{% for post in postslist | reverse %}
+		{% block head %}
+        {%- include 'stockmeta.njk' %}
+        <link rel="canonical" href="https://blog.terrible.dev/">
+		{% endblock %}
+
+{% for post in pagination.items %}
 				{% include "postSummary.njk" %}
 {% endfor %}
 	<div class="bottomNavButtons">
-					<a href="{{ previous }}" class="btn">&#8592; Previous Page</a>
+      {% if pagination.href.previous %}
+            <a href="{{ pagination.href.previous }}" class="btn">&#8592; Previous Page</a>
+      {% endif %}
 			<div class="spacer"></div>
-					<a href="{{ next }}" class="btn">Next Page &#8594;</a>
+        {% if pagination.href.next %}
+					<a href="{{ pagination.href.next }}" class="btn">Next Page &#8594;</a>
+        {% endif %}
 	</div>
-
-				{# LD data #}
-
-	{% block head %}
-		<link rel="canonical" href="https://blog.terrible.dev/">
-	{% endblock %}

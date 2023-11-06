@@ -14,8 +14,7 @@ module.exports = function(eleventyConfig) {
 	// Copy the contents of the `public` folder to the output folder
 	// For example, `./public/css/` ends up in `_site/css/`
 	eleventyConfig.addPassthroughCopy({
-		"./public/": "/",
-		"./node_modules/prismjs/themes/prism-okaidia.css": "/css/prism-okaidia.css"
+		"./wwwroot/": "/",
 	});
 
 	// Run Eleventy when these files change:
@@ -67,12 +66,23 @@ module.exports = function(eleventyConfig) {
 
 	eleventyConfig.addFilter("summerizePost", post => {
     // get content
-		return post.split('<!-- more -->')[0];
+		const splitted =  post.split('<!-- more -->');
+    if(splitted.length > 1) {
+      return splitted[0];
+    }
+    // return the first paragraph
+    return post.split('\n')[0];
   });
 
-	eleventyConfig.addFilter("getPermalinkForHomePage", post => {
+  eleventyConfig.addFilter("nohtml", content => {
+    // remove all html tags
+    return content.replace(/(<([^>]+)>)/gi, "");
+
+  });
+
+	eleventyConfig.addFilter("getPermalinkForHomePage", pageNumber => {
     // get content
-		return post.split('<!-- more -->')[0];
+		return pageNumber === 0 ? '/' : '/page/' + (pageNumber + 1);
   });
 
 	// Return all the tags used in a collection
@@ -90,18 +100,18 @@ module.exports = function(eleventyConfig) {
 	});
 
 	// Customize Markdown library settings:
-	eleventyConfig.amendLibrary("md", mdLib => {
-		mdLib.use(markdownItAnchor, {
-			permalink: markdownItAnchor.permalink.ariaHidden({
-				placement: "after",
-				class: "header-anchor",
-				symbol: "#",
-				ariaHidden: false,
-			}),
-			level: [1,2,3,4],
-			slugify: eleventyConfig.getFilter("slugify")
-		});
-	});
+	// eleventyConfig.amendLibrary("md", mdLib => {
+	// 	mdLib.use(markdownItAnchor, {
+	// 		permalink: markdownItAnchor.permalink.ariaHidden({
+	// 			placement: "after",
+	// 			class: "header-anchor",
+	// 			symbol: "#",
+	// 			ariaHidden: false,
+	// 		}),
+	// 		level: [1,2,3,4],
+	// 		slugify: eleventyConfig.getFilter("slugify")
+	// 	});
+	// });
 
 	// Features to make your build faster (when you need them)
 
@@ -126,7 +136,7 @@ module.exports = function(eleventyConfig) {
 		],
 
 		// Pre-process *.md files with: (default: `liquid`)
-		markdownTemplateEngine: 'md',
+		markdownTemplateEngine: false,
 
 		// Pre-process *.html files with: (default: `liquid`)
 		htmlTemplateEngine: "njk",

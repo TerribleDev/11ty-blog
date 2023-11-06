@@ -3,7 +3,7 @@ if (navigator && navigator.serviceWorker && navigator.serviceWorker.controller) 
 } else if (navigator && navigator.serviceWorker) {
 
     //Register the ServiceWorker
-    navigator.serviceWorker.register('/sw.min.js', {
+    navigator.serviceWorker.register('/sw.js', {
         scope: '/'
     }).then(() => {
         console.log('SW');
