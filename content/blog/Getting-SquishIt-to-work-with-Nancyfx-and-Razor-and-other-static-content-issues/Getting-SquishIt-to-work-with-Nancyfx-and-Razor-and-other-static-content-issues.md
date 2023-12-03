@@ -28,15 +28,13 @@ It seems you **must** tell razor about squishIt's assemblies. Well It turns out 
 
 You should end up with a section config that looks like the following:
 
-```XML
+```xml
 <configSections>
     <sectionGroup name="system.web.webPages.razor" type="System.Web.WebPages.Razor.Configuration.RazorWebSectionGroup, System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral>
       <section name="pages" type="System.Web.WebPages.Razor.Configuration.RazorPagesSection, System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral requirePermission="false" />
     </sectionGroup>
   <section name="razor" type="Nancy.ViewEngines.Razor.RazorConfigurationSection, Nancy.ViewEngines.Razor"/>
-  </configSections>
-
-
+</configSections>
 ```
 
 Next paste the following XML **after** `</configSections>`

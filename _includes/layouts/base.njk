@@ -11,11 +11,11 @@
     <link rel="manifest" href="/manifest.json">
     <meta name="author" content="Tommy &quot;TerribleDev&quot; Parnell" />
     <link rel="icon" href="/favicon.ico" />
-		{%- css %}{% include "wwwroot/css/site.css" %}{% endcss %}
-		{%- css %}{% include "wwwroot/css/site.mobile.css" %}{% endcss %}
-		{%- css %}{% include "wwwroot/css/site.desktop.css" %}{% endcss %}
+		{%- css %}{% include "../../content/css/site.css" %}{% endcss %}
+		{%- css %}{% include "../../content/css/site.mobile.css" %}{% endcss %}
+		{%- css %}{% include "../../content/css/site.desktop.css" %}{% endcss %}
 		{#- Render the CSS bundle using Inlined CSS (for the fastest site performance in production) #}
-		<style>{% getBundle "css" %}</style>
+    <link rel="stylesheet" href="{% getBundleFileUrl "css" %}" />
 		{% block head %}
 		{% endblock %}
 
@@ -33,7 +33,9 @@
           </main>
       </div>
     </div>
-    <script src="/js/swi.js"></script>
+    {# <script src="{{ '../../content/js/swi.js' | url }}"></script> #}
+    {%- js %}{% include "../../content/js/swi.js" %}{% endjs %}
+    <script src="{% getBundleFileUrl "js" %}" async></script>
 		{% block scripts %}
 		{% endblock %}
 </body>

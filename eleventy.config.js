@@ -1,5 +1,6 @@
 const { DateTime } = require("luxon");
 const markdownItAnchor = require("markdown-it-anchor");
+const htmlmin = require("html-minifier");
 
 const pluginRss = require("@11ty/eleventy-plugin-rss");
 const pluginSyntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
@@ -98,6 +99,20 @@ module.exports = function(eleventyConfig) {
 		return (tags || [])
 		.filter(tag => ["all", "nav", "post", "posts"].indexOf(tag) === -1);
 	});
+
+	eleventyConfig.addTransform("htmlmin", function(content) {
+		// Prior to Eleventy 2.0: use this.outputPath instead
+		if( this.page.outputPath && this.page.outputPath.endsWith(".html") ) {
+		  
+			let minified = htmlmin.minify(content, {
+			useShortDoctype: true,
+			removeComments: true,
+			collapseWhitespace: true
+		  });
+		  return minified;
+		}
+		return content;
+	  });
 
 	// Customize Markdown library settings:
 	// eleventyConfig.amendLibrary("md", mdLib => {
