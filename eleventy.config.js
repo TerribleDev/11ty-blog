@@ -83,7 +83,7 @@ module.exports = function(eleventyConfig) {
 
 	eleventyConfig.addFilter("getPermalinkForHomePage", pageNumber => {
     // get content
-		return pageNumber === 0 ? '/' : '/page/' + (pageNumber + 1);
+		return pageNumber === 0 ? '/' : '/page/' + (pageNumber + 1) + '/';
   });
 
 	// Return all the tags used in a collection
