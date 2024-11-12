@@ -5,7 +5,7 @@ tags:
   - csharp
   - logging
   - library
-permalink: wiring-up-client-side-logs-into-c-sharp-logging-frameworks
+permalink: wiring-up-client-side-logs-into-c-sharp-logging-frameworks/
 id: 60
 updated: '2015-11-01 08:53:04'
 date: 2015-11-01 08:22:07

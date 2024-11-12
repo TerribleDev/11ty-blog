@@ -1,17 +1,17 @@
-const { DateTime } = require("luxon");
-const markdownItAnchor = require("markdown-it-anchor");
-const htmlmin = require("html-minifier");
+import { DateTime } from "luxon";
+import markdownItAnchor from "markdown-it-anchor";
+import { minify } from "html-minifier";
 
-const pluginRss = require("@11ty/eleventy-plugin-rss");
-const pluginSyntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
-const pluginBundle = require("@11ty/eleventy-plugin-bundle");
-const pluginNavigation = require("@11ty/eleventy-navigation");
-const { EleventyHtmlBasePlugin } = require("@11ty/eleventy");
+import pluginRss from "@11ty/eleventy-plugin-rss";
+import pluginSyntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
+import pluginBundle from "@11ty/eleventy-plugin-bundle";
+import pluginNavigation from "@11ty/eleventy-navigation";
+import { EleventyHtmlBasePlugin } from "@11ty/eleventy";
 
-const pluginDrafts = require("./eleventy.config.drafts.js");
-const pluginImages = require("./eleventy.config.images.js");
+import pluginDrafts from "./eleventy.config.drafts.js";
+import pluginImages from "./eleventy.config.images.js";
 
-module.exports = function(eleventyConfig) {
+export default function(eleventyConfig) {
 	// Copy the contents of the `public` folder to the output folder
 	// For example, `./public/css/` ends up in `_site/css/`
 	eleventyConfig.addPassthroughCopy({
@@ -23,7 +23,6 @@ module.exports = function(eleventyConfig) {
 
 	// Watch content images for the image pipeline.
 	eleventyConfig.addWatchTarget("content/**/*.{svg,webp,png,jpeg}");
-
 	// App plugins
 	eleventyConfig.addPlugin(pluginDrafts);
 	eleventyConfig.addPlugin(pluginImages);
@@ -104,7 +103,7 @@ module.exports = function(eleventyConfig) {
 		// Prior to Eleventy 2.0: use this.outputPath instead
 		if( this.page.outputPath && this.page.outputPath.endsWith(".html") ) {
 		  
-			let minified = htmlmin.minify(content, {
+			let minified = minify(content, {
 			useShortDoctype: true,
 			removeComments: true,
 			collapseWhitespace: true

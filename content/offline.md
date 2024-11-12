@@ -1,6 +1,6 @@
 ---
 layout: layouts/base.njk
-permalink: offline
+permalink: /offline/
 eleventyExcludeFromCollections: true
 ---
 # Ooops!
